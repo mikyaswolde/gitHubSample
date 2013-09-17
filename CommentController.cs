@@ -13,6 +13,7 @@ namespace MDGov.MDE.WSIPS.Portal.InternalWeb.Controllers
         private readonly IUpdatableService<Comment> _commentService;
         private readonly IService<LU_TableList> _tableListService;
 
+		// constructor
         public CommentController(
             IService<LU_TableList> tableListService,
             IUpdatableService<Comment> commentService)
@@ -21,6 +22,7 @@ namespace MDGov.MDE.WSIPS.Portal.InternalWeb.Controllers
             _tableListService = tableListService;
         }
 
+		// this controller will return the html code
         public virtual ActionResult LoadCommentsView(string refTable, int refId, int permitStatusId)
         {
             var tableList = _tableListService.GetRange(0, 1, "", new DynamicFilter[] { new DynamicFilter(String.Format("Description==\"{0}\"", refTable)) });
@@ -33,6 +35,8 @@ namespace MDGov.MDE.WSIPS.Portal.InternalWeb.Controllers
             return PartialView(MVC.Comment.Views.Comment);
         }
 
+		// used for jqGrid 
+		// will get a data and return it in json form
         [HttpGet]
         public virtual JsonResult Data(int id, int permitStatus)
         {
@@ -70,6 +74,7 @@ namespace MDGov.MDE.WSIPS.Portal.InternalWeb.Controllers
             return temp;
         }
 
+		// save a comment to the database
         [HttpGet]
         public virtual void SaveComment(Comment comment)
         {
@@ -79,6 +84,7 @@ namespace MDGov.MDE.WSIPS.Portal.InternalWeb.Controllers
             _commentService.Save(comment);
         }
 
+		// deletes a comment from the database
         public virtual JsonResult Delete(int id)
         {
             try
@@ -93,6 +99,7 @@ namespace MDGov.MDE.WSIPS.Portal.InternalWeb.Controllers
             }
         }
 
+		// returns a comment retrivied by id
         public virtual JsonResult GetComment(int id)
         {
             string userName = System.Web.HttpContext.Current.User.Identity.Name;//System.Security.Principal.WindowsIdentity.GetCurrent().Name;

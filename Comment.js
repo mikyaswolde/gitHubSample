@@ -6,6 +6,7 @@ var Comment = {
 
     MakeReadOnly:false,
 
+	// entry point for this javascript object
     Initialize: function (id, permitStatus, refTableId, userName) {
 
         Comment.PermitId = id;
