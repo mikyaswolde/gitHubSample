@@ -1,0 +1,37 @@
+﻿@using MDGov.MDE.Permitting.Model
+
+    <input id="addCommentButton" type="button" value="Add Comment" class="buttonOverGrid commentsTab" />
+    <input id="addPublicCommentButton" type="button" value="Add Public Comment" class="commentsTab" style="display: none;" />
+    <table id="commentDashboardGrid"></table>
+
+<div id="dialog" title="Add New Comment" style="display: none;">
+</div>
+
+<div id="dialog2" title="Delete" style="display: none;">
+    Are you sure you want to delete this item?
+</div>
+
+
+@{
+    var id = ViewBag.RefId;// ((Comment)ViewData["Permit"]).Id;
+    var permitStatus = ViewBag.PermitStatusId;// ((Comment)ViewData["Permit"]).PermitStatusId ?? 0;
+    var refTableId = ViewBag.RefTableId;//((Comment)ViewData["Permit"]).RefTableId;
+    var userName = System.Web.HttpContext.Current.User.Identity.Name.Replace(@"\", "\\\\");
+                
+}
+
+@Styles.Render("~/Content/jquery.jqGrid/ui.jqgrid.css")
+
+
+
+@Scripts.Render("~/Scripts/Helper.js")
+@Scripts.Render("~/Scripts/DateFormatter.js")
+@Scripts.Render("~/Scripts/ViewScripts/Permit/Comment.js")
+
+<script type="text/javascript">
+    
+    $(document).ready(function () {
+        Comment.Initialize(@id,@permitStatus, @refTableId,'@userName');
+    });
+
+</script>
